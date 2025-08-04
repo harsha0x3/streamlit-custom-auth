@@ -15,15 +15,6 @@ CREATE TABLE `user_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `user_sessions`
---
-
-LOCK TABLES `user_sessions` WRITE;
-/*!40000 ALTER TABLE `user_sessions` DISABLE KEYS */;
-INSERT INTO `user_sessions` VALUES ('llQ7CpJbhev1P7Amgu5fT2AsK1QF3E9EYd1wCbn501U','Harsha','admin',1754225299),('Pwdmm6raFNlkg8UzmTjxv8bHtg0zO30pXNLIVI4JQDQ','Harsha','admin',1754225390),('SHMkuHcMrU2IeoOcTFT_GzCet_nN6RVAW5FRSKOgOPY','Harsha','admin',1754226871);
-/*!40000 ALTER TABLE `user_sessions` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
