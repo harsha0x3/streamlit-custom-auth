@@ -1,9 +1,12 @@
 import pymysql
 import os
-from utils.log import logger
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def get_db_conn():
@@ -23,72 +26,6 @@ def init_db():
         c = conn.cursor()
 
         # ----- Create tables if they don't exist -----
-        c.execute(
-            """
-            CREATE TABLE IF NOT EXISTS tickets (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                incident_number VARCHAR(255) UNIQUE,
-                created_on DATETIME,
-                priority VARCHAR(255),
-                risk_score VARCHAR(255),
-                status VARCHAR(255),
-                sender VARCHAR(255),
-                service_start DATETIME,
-                issue_summary TEXT,
-                domain VARCHAR(255)
-            )
-        """
-        )
-
-        # ----- Create meta table for alert tracking -----
-
-        c.execute(
-            """
-            CREATE TABLE IF NOT EXISTS meta (
-                incident_number VARCHAR(255) PRIMARY KEY,
-                last_alert_sent_to_h1 DATETIME,
-                last_alert_sent_to_h2 DATETIME,
-                last_breach_alert_sent_to_h1 DATETIME,
-                last_breach_alert_sent_to_h2 DATETIME
-            )
-        """
-        )
-
-        # ----- Create table for verticals -----
-
-        c.execute(
-            """
-            CREATE TABLE IF NOT EXISTS verticals (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                vertical_name VARCHAR(255) NOT NULL UNIQUE,
-                team_lead VARCHAR(255) NOT NULL,
-                vertical_head VARCHAR(255) NOT NULL
-            )"""
-        )
-
-        # ----- Create table for domains -----
-        c.execute(
-            """
-            CREATE TABLE IF NOT EXISTS domains (
-                vertical_id INT NOT NULL,
-                domain VARCHAR(255) NOT NULL,
-                PRIMARY KEY (vertical_id, domain),
-                FOREIGN KEY (vertical_id) REFERENCES verticals(id)
-                )"""
-        )
-
-        # ----- Create table for contacts -----
-        c.execute(
-            """
-            CREATE TABLE IF NOT EXISTS contacts (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                vertical_id INT NOT NULL UNIQUE,
-                team_lead_contact VARCHAR(512),
-                vertical_head_contact VARCHAR(512),
-                FOREIGN KEY (vertical_id) REFERENCES verticals(id)
-                )
-                """
-        )
 
         # ----- Create table for users -----
 

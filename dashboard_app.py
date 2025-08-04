@@ -50,7 +50,7 @@ if st.session_state.get("authenticated", False):
         sm.update_session(st.session_state.session_id)
 
 st.set_page_config(
-    page_title="SOC Alerts Dashboard",
+    page_title="Streamlit Auth Dashboard",
     layout="wide",
     # cookie_secure=True,
     # cookie_samesite="Lax",
@@ -101,7 +101,7 @@ if getattr(st.session_state, "show_reg_form", False):
 
         # Generate QR code
         otp_uri = pyotp.totp.TOTP(st.session_state.new_mfa_secret).provisioning_uri(
-            name=st.session_state.new_username, issuer_name="SOC Dashboard"
+            name=st.session_state.new_username, issuer_name="streamlit auth"
         )
 
         img = qrcode.make(otp_uri)

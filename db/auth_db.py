@@ -2,7 +2,10 @@ import pyotp, secrets, pymysql, bcrypt
 import streamlit as st
 import time
 from db.setup_db import get_db_conn
-from utils.log import logger
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class DB_Utils:
@@ -198,8 +201,3 @@ def reset_password(username: str, new_password: str):
     finally:
         if conn:
             conn.close()
-
-
-# def logout():
-#     for key in list(st.session_state.keys()):
-#         del st.session_state[key]
